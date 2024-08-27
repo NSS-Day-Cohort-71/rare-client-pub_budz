@@ -2,7 +2,8 @@ import { Route, Routes } from "react-router-dom";
 import { Login } from "../components/auth/Login";
 import { Register } from "../components/auth/Register";
 import { Authorized } from "./Authorized";
-import { Categories } from "../categories/Categories";
+import { Categories } from "../components/categories/Categories.jsx";
+import { Tags } from "../components/tags/tags";
 
 export const ApplicationViews = ({ token, setToken }) => {
   return (
@@ -13,6 +14,7 @@ export const ApplicationViews = ({ token, setToken }) => {
         <Route element={<Authorized token={token} />}>
           {/* Add Routes here */}
           <Route path="categories" element={<Categories />} />
+          <Route path="Tags" element={<Tags />} />
         </Route>
       </Routes>
     </>
