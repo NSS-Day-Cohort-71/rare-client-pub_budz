@@ -17,13 +17,26 @@ export const AllPosts = () => {
       <h1>
         <strong>Posts</strong>
       </h1>
-      <ul>
-        {posts.map((post) => (
-          <li key={post.id}>
-            {post.title} {post.publication_date} {post.approved}
-          </li>
-        ))}
-      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Date</th>
+            <th>Category</th>
+          </tr>
+        </thead>
+        <tbody>
+          {posts.map((post) => (
+            <tr key={post.id}>
+              <td>{post.title}</td>
+              <td>{post.author}</td>
+              <td>{post.publication_date}</td>
+              <td>{post.category}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
