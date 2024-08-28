@@ -4,6 +4,7 @@ import { Register } from "../components/auth/Register";
 import { Authorized } from "./Authorized";
 import { Categories } from "../components/categories/Categories.jsx";
 import { Tags } from "../components/tags/tags";
+import { EditCategory } from "../components/categories/EditCategory.jsx";
 
 export const ApplicationViews = ({ token, setToken }) => {
   return (
@@ -15,6 +16,11 @@ export const ApplicationViews = ({ token, setToken }) => {
           {/* Add Routes here */}
           <Route path="categories" element={<Categories />} />
           <Route path="Tags" element={<Tags />} />
+          <Route
+            path="/categories/edit/:categoryId"
+            element={<EditCategory />}
+          />{" "}
+          {/* Add route for editing categories */}
         </Route>
       </Routes>
     </>
