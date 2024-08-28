@@ -4,7 +4,7 @@ import { Register } from "../components/auth/Register";
 import { Authorized } from "./Authorized";
 import { Categories } from "../components/categories/Categories";
 import { Tags } from "../components/tags/tags";
-import { EditCategory } from "../components/categories/EditCategory.jsx";
+import { EditCategory } from "../components/categories/EditCategory"; // Import the EditCategory component
 import { EditTag } from "../components/tags/EditTag"; // Import the EditTag component
 import { AllPosts } from "../components/posts/AllPosts";
 
@@ -22,6 +22,11 @@ export const ApplicationViews = ({ token, setToken }) => {
           {/* Ensure this is lowercase to match the rest */}
           <Route path="tags/edit/:id" element={<EditTag />} />{" "}
           {/* Add the EditTag route */}
+          <Route
+            path="/categories/edit/:categoryId"
+            element={<EditCategory />}
+          />{" "}
+          {/* Add route for editing categories */}
         </Route>
       </Routes>
     </>
