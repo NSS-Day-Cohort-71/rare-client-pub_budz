@@ -27,6 +27,10 @@ export const ApplicationViews = ({ token, setToken }) => {
             element={<EditCategory />}
           />{" "}
           {/* Add route for editing categories */}
+          <Route path="tags" element={<Tags />} />{" "}
+          {/* Ensure this is lowercase to match the rest */}
+          <Route path="tags/edit/:id" element={<EditTag />} />{" "}
+          {/* Add the EditTag route */}
         </Route>
       </Routes>
     </>
