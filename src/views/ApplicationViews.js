@@ -2,9 +2,10 @@ import { Route, Routes } from "react-router-dom";
 import { Login } from "../components/auth/Login";
 import { Register } from "../components/auth/Register";
 import { Authorized } from "./Authorized";
-import { Categories } from "../components/categories/Categories.jsx";
+import { Categories } from "../components/categories/Categories";
 import { Tags } from "../components/tags/tags";
 import { EditTag } from "../components/tags/EditTag"; // Import the EditTag component
+import { AllPosts } from "../components/posts/AllPosts";
 
 export const ApplicationViews = ({ token, setToken }) => {
   return (
@@ -14,6 +15,7 @@ export const ApplicationViews = ({ token, setToken }) => {
         <Route path="/register" element={<Register setToken={setToken} />} />
         <Route element={<Authorized token={token} />}>
           {/* Add Routes here */}
+          <Route path="posts" element={<AllPosts />} />
           <Route path="categories" element={<Categories />} />
           <Route path="tags" element={<Tags />} /> {/* Ensure this is lowercase to match the rest */}
           <Route path="tags/edit/:id" element={<EditTag />} /> {/* Add the EditTag route */}
