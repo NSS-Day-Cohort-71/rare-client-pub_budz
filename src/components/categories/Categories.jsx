@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAllCategories } from "../services/categoryService";
+import { getAllCategories } from "../../services/categoryService";
 
 export const Categories = () => {
   const [categories, setCategories] = useState([]);
@@ -14,7 +14,9 @@ export const Categories = () => {
 
   return (
     <div>
-      <h1><strong>Categories</strong></h1>
+      <h1>
+        <strong>Categories</strong>
+      </h1>
       <ul>
         {categories.map((category) => (
           <li key={category.id}>{category.label}</li>
