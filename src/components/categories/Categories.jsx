@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getAllCategories } from "../../services/categoryService";
+import { Link } from "react-router-dom";
 
 export const Categories = () => {
   const [categories, setCategories] = useState([]);
@@ -19,7 +20,10 @@ export const Categories = () => {
       </h1>
       <ul>
         {categories.map((category) => (
-          <li key={category.id}>{category.label}</li>
+          <li key={category.id}>
+            {category.label}
+            <Link to={`/categories/edit/${category.id}`}>Edit</Link>
+          </li>
         ))}
       </ul>
     </div>
