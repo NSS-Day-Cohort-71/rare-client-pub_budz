@@ -4,6 +4,7 @@ import { Register } from "../components/auth/Register";
 import { Authorized } from "./Authorized";
 import { Categories } from "../components/categories/Categories.jsx";
 import { Tags } from "../components/tags/tags";
+import { EditTag } from "../components/tags/EditTag"; // Import the EditTag component
 
 export const ApplicationViews = ({ token, setToken }) => {
   return (
@@ -14,7 +15,8 @@ export const ApplicationViews = ({ token, setToken }) => {
         <Route element={<Authorized token={token} />}>
           {/* Add Routes here */}
           <Route path="categories" element={<Categories />} />
-          <Route path="Tags" element={<Tags />} />
+          <Route path="tags" element={<Tags />} /> {/* Ensure this is lowercase to match the rest */}
+          <Route path="tags/edit/:id" element={<EditTag />} /> {/* Add the EditTag route */}
         </Route>
       </Routes>
     </>
