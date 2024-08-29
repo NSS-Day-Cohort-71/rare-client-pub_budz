@@ -27,6 +27,7 @@ export const Tags = () => {
   return (
     <div>
       <h1><strong>Tags</strong></h1>
+      <Link to="/tags/create">Create New Tag</Link> {/* Add this link */}
       <ul>
         {tags.map((tag) => (
           <li key={tag.id}>
