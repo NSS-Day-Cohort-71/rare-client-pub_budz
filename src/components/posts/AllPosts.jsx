@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getAllPosts } from "../../services/postService";
+import { deletePost, getAllPosts } from "../../services/postService";
 
 export const AllPosts = () => {
   const [posts, setPosts] = useState([]);
@@ -12,6 +12,18 @@ export const AllPosts = () => {
     };
     loadPosts();
   }, []);
+
+  const handleDelete = async (postId) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this post?"
+    );
+    if (confirmDelete) {
+      const result = await deletePost(postId);
+      if (result) {
+        setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
+      }
+    }
+  };
 
   return (
     <div>
@@ -32,6 +44,7 @@ export const AllPosts = () => {
             <tr key={post.id}>
               <td>
                 <Link to={`/posts/${post.id}/edit`}>Edit</Link>
+                <button onClick={() => handleDelete(post.id)}>Delete</button>
               </td>
               <td>{post.title}</td>
               <td>{post.author}</td>
