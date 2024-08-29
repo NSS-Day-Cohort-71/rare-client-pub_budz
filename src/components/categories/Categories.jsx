@@ -34,6 +34,9 @@ export const Categories = () => {
       <h1>
         <strong>Categories</strong>
       </h1>
+      <button onClick={() => navigate("/categories/create")}>
+        Create Category
+      </button>
       <ul>
         {categories.map((category) => (
           <li key={category.id}>

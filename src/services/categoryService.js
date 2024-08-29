@@ -64,3 +64,19 @@ export const deleteCategory = async (categoryId) => {
     console.error("Fetch error:", error);
   }
 };
+
+export const createCategory = async (newCategory) => {
+  const response = await fetch("http://localhost:8088/categories", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newCategory),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to create category");
+  }
+
+  return await response.json();
+};
