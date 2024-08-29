@@ -48,3 +48,19 @@ export const updateCategory = async (categoryId, updatedCategory) => {
     throw error; // Re-throw the error so it can be handled elsewhere if needed
   }
 };
+
+export const deleteCategory = async (categoryId) => {
+  try {
+    const response = await fetch(
+      `http://localhost:8088/categories/${categoryId}`,
+      {
+        method: "DELETE",
+      }
+    );
+    if (!response.ok) {
+      throw new Error("Network response was not ok.");
+    }
+  } catch (error) {
+    console.error("Fetch error:", error);
+  }
+};
