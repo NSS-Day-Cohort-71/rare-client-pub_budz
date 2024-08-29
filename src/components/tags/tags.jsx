@@ -1,27 +1,38 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
-import { getAllTags } from "../../services/tagService";
+import { Link } from "react-router-dom";
+import { getAllTags, deleteTag } from "../../services/tagService";
 
 export const Tags = () => {
-  const [Tags, setTags] = useState([]);
+  const [tags, setTags] = useState([]);
 
   useEffect(() => {
     const loadTags = async () => {
-      const TagsData = await getAllTags();
-      setTags(TagsData);
+      const tagsData = await getAllTags();
+      setTags(tagsData);
     };
     loadTags();
   }, []);
+
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this tag?");
+    
+    if (confirmDelete) {
+      const isDeleted = await deleteTag(id);
+      if (isDeleted) {
+        setTags(tags.filter(tag => tag.id !== id)); // Remove the deleted tag from the state
+      }
+    }
+  };
 
   return (
     <div>
       <h1><strong>Tags</strong></h1>
       <ul>
-        {Tags.map((Tag) => (
-          <li key={Tag.id}>
-            {Tag.label}
-            {" "}
-            <Link to={`/tags/edit/${Tag.id}`}>Edit</Link> {/* Add Edit Link */}
+        {tags.map((tag) => (
+          <li key={tag.id}>
+            {tag.label}{" "}
+            <Link to={`/tags/edit/${tag.id}`}>Edit</Link>{" "}
+            <button onClick={() => handleDelete(tag.id)}>Delete</button>
           </li>
         ))}
       </ul>

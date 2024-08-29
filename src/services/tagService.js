@@ -41,3 +41,17 @@ export const updateTag = async (id, tag) => {
     console.error("Fetch error:", error);
   }
 };
+export const deleteTag = async (id) => {
+  try {
+    const response = await fetch(`http://localhost:8088/tags/${id}`, {
+      method: "DELETE",
+    });
+    if (!response.ok) {
+      throw new Error("Network response was not ok.");
+    }
+    return true;
+  } catch (error) {
+    console.error("Fetch error:", error);
+    return false;
+  }
+};
