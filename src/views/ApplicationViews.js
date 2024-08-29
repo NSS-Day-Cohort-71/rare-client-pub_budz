@@ -4,8 +4,9 @@ import { Register } from "../components/auth/Register";
 import { Authorized } from "./Authorized";
 import { Categories } from "../components/categories/Categories";
 import { Tags } from "../components/tags/tags";
-import { EditTag } from "../components/tags/EditTag"; // Import the EditTag component
+import { EditTag } from "../components/tags/EditTag"; 
 import { AllPosts } from "../components/posts/AllPosts";
+import { EditPost } from "../components/posts/EditPost";
 
 export const ApplicationViews = ({ token, setToken }) => {
   return (
@@ -16,9 +17,10 @@ export const ApplicationViews = ({ token, setToken }) => {
         <Route element={<Authorized token={token} />}>
           {/* Add Routes here */}
           <Route path="posts" element={<AllPosts />} />
+          <Route path="posts/:postId/edit" element={<EditPost />} />
           <Route path="categories" element={<Categories />} />
-          <Route path="tags" element={<Tags />} /> {/* Ensure this is lowercase to match the rest */}
-          <Route path="tags/edit/:id" element={<EditTag />} /> {/* Add the EditTag route */}
+          <Route path="tags" element={<Tags />} /> 
+          <Route path="tags/edit/:id" element={<EditTag />} /> 
         </Route>
       </Routes>
     </>
