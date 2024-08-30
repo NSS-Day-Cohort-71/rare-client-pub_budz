@@ -10,6 +10,9 @@ import { AllPosts } from "../components/posts/AllPosts";
 import { EditPost } from "../components/posts/EditPost";
 import { CreateCategory } from "../components/categories/CreateCategory";
 import { CreateTag } from "../components/tags/CreateTag";
+import PostDetail from "../components/posts/PostDetail";
+
+
 
 export const ApplicationViews = ({ token, setToken }) => {
   return (
@@ -20,6 +23,7 @@ export const ApplicationViews = ({ token, setToken }) => {
         <Route element={<Authorized token={token} />}>
           <Route path="posts" element={<AllPosts />} />
           <Route path="posts/:postId/edit" element={<EditPost />} />
+          <Route path="posts/:postId" element={<PostDetail />} />
           <Route path="categories" element={<Categories />} />
           <Route path="/categories/edit/:categoryId" element={<EditCategory />} />
           <Route path="categories/create" element={<CreateCategory />} />

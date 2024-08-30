@@ -33,6 +33,7 @@ export const AllPosts = () => {
       <table>
         <thead>
           <tr>
+            <th>Actions</th>
             <th>Title</th>
             <th>Author</th>
             <th>Date</th>
@@ -43,10 +44,12 @@ export const AllPosts = () => {
           {posts.map((post) => (
             <tr key={post.id}>
               <td>
-                <Link to={`/posts/${post.id}/edit`}>Edit</Link>
+                <Link to={`/posts/${post.id}/edit`}>Edit</Link>{" "}
                 <button onClick={() => handleDelete(post.id)}>Delete</button>
               </td>
-              <td>{post.title}</td>
+              <td>
+                <Link to={`/posts/${post.id}`}>{post.title}</Link> {/* Make the title clickable */}
+              </td>
               <td>{post.author}</td>
               <td>{post.publication_date}</td>
               <td>{post.category}</td>
