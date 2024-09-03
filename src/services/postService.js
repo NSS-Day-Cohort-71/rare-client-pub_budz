@@ -62,3 +62,25 @@ export const deletePost = async (postId) => {
     console.error("Error deleting post:", error);
   }
 };
+
+export const createPost = async (post) => {
+  try {
+    const res = await fetch(`http://localhost:8088/posts/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(post),
+    });
+
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error("Error creating post:", error);
+    throw error;
+  }
+};
