@@ -30,10 +30,15 @@ export const AllPosts = () => {
       <h1>
         <strong>Posts</strong>
       </h1>
+      <div>
+        <Link to="/posts/new">
+          <button>Add Post</button>
+        </Link>
+      </div>
       <table>
         <thead>
           <tr>
-            <th>Actions</th>
+            <th>{""}</th>
             <th>Title</th>
             <th>Author</th>
             <th>Date</th>
