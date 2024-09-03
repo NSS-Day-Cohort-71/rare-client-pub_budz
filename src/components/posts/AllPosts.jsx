@@ -43,13 +43,17 @@ export const AllPosts = () => {
           {posts.map((post) => (
             <tr key={post.id}>
               <td>
-                <Link to={`/posts/${post.id}/edit`}>Edit</Link>
-                <button onClick={() => handleDelete(post.id)}>Delete</button>
+                <Link to={`/posts/${post.id}`}>{post.title}</Link>
               </td>
-              <td>{post.title}</td>
               <td>{post.author}</td>
               <td>{post.publication_date}</td>
               <td>{post.category}</td>
+              <td>
+                <Link to={`/posts/${post.id}/edit`}>Edit</Link>
+              </td>
+              <td>
+                <button onClick={() => handleDelete(post.id)}>Delete</button>
+              </td>
             </tr>
           ))}
         </tbody>
