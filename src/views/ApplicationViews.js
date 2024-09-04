@@ -12,11 +12,8 @@ import { CreateCategory } from "../components/categories/CreateCategory";
 import { CreateTag } from "../components/tags/CreateTag";
 import { NewPost } from "../components/posts/NewPost";
 import PostDetail from "../components/posts/PostDetail";
-import { MyPosts } from '../components/posts/MyPosts';
-
-
-
-
+import { MyPosts } from "../components/posts/MyPosts";
+import CommentForm from "../components/comments/CommentForm";
 
 export const ApplicationViews = ({ token, setToken }) => {
   return (
@@ -30,12 +27,18 @@ export const ApplicationViews = ({ token, setToken }) => {
           <Route path="posts/:postId/edit" element={<EditPost />} />
           <Route path="posts/:postId" element={<PostDetail />} />
           <Route path="categories" element={<Categories />} />
-          <Route path="/categories/edit/:categoryId" element={<EditCategory />} />
+          <Route
+            path="/categories/edit/:categoryId"
+            element={<EditCategory />}
+          />
           <Route path="categories/create" element={<CreateCategory />} />
           <Route path="tags" element={<Tags />} />
           <Route path="/myposts" element={<MyPosts />} />
           <Route path="tags/edit/:id" element={<EditTag />} />
           <Route path="tags/create" element={<CreateTag />} />
+
+          {/* Add Comment Route */}
+          <Route path="posts/:postId/comments/new" element={<CommentForm />} />
         </Route>
       </Routes>
     </>
