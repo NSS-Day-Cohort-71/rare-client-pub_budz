@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { getPostById } from "../../services/postService";
 import { getCommentsByPostId } from "../../services/commentService";
 import CommentList from "../comments/CommentList";
@@ -64,7 +64,8 @@ const PostDetail = () => {
       {post.image_url && <img src={post.image_url} alt="Post Header" />}
       <p>{post.content}</p>
 
-      {/* Display comments */}
+      <Link to={`/posts/${postId}/comments/new`}>Add Comment</Link>
+
       <CommentList comments={comments} />
     </div>
   );

@@ -1,34 +1,41 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getCommentsByPostId } from "../../services/commentService"; // Import your service
+import {
+  getCommentsByPostId,
+  deleteComment,
+} from "../../services/commentService";
 
-export const CommentList = ({ comments: initialComments = [] }) => {
+export const CommentList = () => {
   const { postId } = useParams();
-  const [comments, setComments] = useState(initialComments);
+  const [comments, setComments] = useState([]);
   const [postTitle, setPostTitle] = useState("");
 
   useEffect(() => {
-    // Fetch comments by postId
-    if (!initialComments.length) {
-      getCommentsByPostId(postId)
-        .then((data) => {
-          console.log("Fetched comments data:", data);
-          // Check if data is an array of comments
-          if (Array.isArray(data)) {
-            setComments(data);
-          } else {
-            console.error("API did not return an array for comments.");
-          }
-        })
-        .catch((error) => console.error("Error fetching comments:", error));
-    }
+    const fetchComments = async () => {
+      const postComments = await getCommentsByPostId(postId);
+      setComments(postComments);
+    };
 
-    // Fetch post title
+    fetchComments();
+
     fetch(`http://localhost:8088/posts/${postId}`)
       .then((response) => response.json())
       .then((data) => setPostTitle(data.title))
       .catch((error) => console.error("Error fetching post title:", error));
-  }, [postId, initialComments]);
+  }, [postId]);
+
+  // Function to handle comment deletion
+  const handleDelete = async (commentId) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this comment?"
+    );
+    if (confirmDelete) {
+      await deleteComment(commentId);
+      // After deletion, fetch the updated list of comments
+      const updatedComments = await getCommentsByPostId(postId);
+      setComments(updatedComments);
+    }
+  };
 
   return (
     <div>
@@ -40,14 +47,12 @@ export const CommentList = ({ comments: initialComments = [] }) => {
           {comments.map((comment) => (
             <li key={comment.id}>
               <p>
-                <strong>{comment.author_id}</strong>{" "}
-                {/* Change author_id to display name */}(
-                {comment.created_on
-                  ? new Date(comment.created_on).toLocaleDateString()
-                  : "Unknown Date"}
-                ):
+                <strong>{comment.author}</strong> (
+                {new Date(comment.created_on).toLocaleDateString()}):
               </p>
               <p>{comment.content}</p>
+              {/* Delete button for each comment */}
+              <button onClick={() => handleDelete(comment.id)}>Delete</button>
             </li>
           ))}
         </ul>

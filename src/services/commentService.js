@@ -17,7 +17,7 @@ export const deleteComment = async (commentId) => {
 
 export const createComment = async (newComment) => {
   try {
-    const response = await fetch(`http://localhost:8088/comments/`, {
+    const response = await fetch(`http://localhost:8088/comments`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
