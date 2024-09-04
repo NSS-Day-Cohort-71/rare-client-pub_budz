@@ -102,6 +102,7 @@ export const MyPosts = () => {
             <tr>
               <th>Title</th>
               <th>Category</th>
+              <th>Author</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -109,7 +110,8 @@ export const MyPosts = () => {
             {posts.map((post) => (
               <tr key={post.id}>
                 <td>{post.title}</td>
-                <td>{post.category}</td>
+                <td>{post.author}</td>
+                <td>{post.category}</td>  
                 <td>
                   <Link to={`/posts/${post.id}/edit`}>Edit</Link>
                   <button onClick={() => handleDelete(post.id)}>Delete</button>
