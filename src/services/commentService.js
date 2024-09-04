@@ -46,3 +46,17 @@ export const getAllComments = async () => {
     console.error("Error fetching comments:", error);
   }
 };
+
+export const getCommentsByPostId = async (postId) => {
+  try {
+    const response = await fetch(
+      `http://localhost:8088/comments?post_id=${postId}`
+    );
+    if (!response.ok) {
+      throw new Error("Failed to fetch comments for the post");
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching comments for the post:", error);
+  }
+};
