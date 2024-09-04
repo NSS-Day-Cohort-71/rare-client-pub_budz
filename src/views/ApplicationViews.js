@@ -12,6 +12,9 @@ import { CreateCategory } from "../components/categories/CreateCategory";
 import { CreateTag } from "../components/tags/CreateTag";
 import { NewPost } from "../components/posts/NewPost";
 import PostDetail from "../components/posts/PostDetail";
+import { MyPosts } from '../components/posts/MyPosts';
+
+
 
 
 
@@ -30,6 +33,7 @@ export const ApplicationViews = ({ token, setToken }) => {
           <Route path="/categories/edit/:categoryId" element={<EditCategory />} />
           <Route path="categories/create" element={<CreateCategory />} />
           <Route path="tags" element={<Tags />} />
+          <Route path="/myposts" element={<MyPosts />} />
           <Route path="tags/edit/:id" element={<EditTag />} />
           <Route path="tags/create" element={<CreateTag />} />
         </Route>

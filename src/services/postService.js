@@ -84,3 +84,19 @@ export const createPost = async (post) => {
     throw error;
   }
 };
+
+export const getMyPosts = async () => {
+  const userId = localStorage.getItem('userId'); // Ensure the userId is correctly stored
+  try {
+    const response = await fetch(`http://localhost:8088/posts?user_id=${userId}`);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const posts = await response.json();
+    return posts;
+  } catch (error) {
+    console.error('Error fetching user posts:', error);
+    throw error;
+  }
+};
+
