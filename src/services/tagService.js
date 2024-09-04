@@ -41,6 +41,7 @@ export const updateTag = async (id, tag) => {
     console.error("Fetch error:", error);
   }
 };
+
 export const deleteTag = async (id) => {
   try {
     const response = await fetch(`http://localhost:8088/tags/${id}`, {
@@ -55,6 +56,7 @@ export const deleteTag = async (id) => {
     return false;
   }
 };
+
 export const createTag = async (tag) => {
   try {
     const response = await fetch("http://localhost:8088/tags", {
@@ -71,5 +73,70 @@ export const createTag = async (tag) => {
   } catch (error) {
     console.error("Fetch error:", error);
     throw error;
+  }
+};
+
+// New Functions to Add
+
+// Fetch tags associated with a specific post
+export const getTagsByPostId = async (postId) => {
+  try {
+    const response = await fetch(`http://localhost:8088/posts/tags/${postId}`);
+    if (!response.ok) {
+      throw new Error("Failed to fetch tags for the post.");
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Fetch error:", error);
+  }
+};
+
+// Save tags for a specific post
+export const savePostTags = async (postId, tagIds) => {
+  try {
+    const response = await fetch(`http://localhost:8088/posts/tags/${postId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ tag_ids: tagIds }),
+    });
+    if (!response.ok) {
+      throw new Error("Failed to save tags for the post.");
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Fetch error:", error);
+  }
+};
+// Fetch tags associated with a specific post
+export const getTagsForPost = async (postId) => {
+  try {
+    const response = await fetch(`http://localhost:8088/posts/${postId}/tags`);
+    if (!response.ok) {
+      throw new Error("Network response was not ok.");
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Fetch error:", error);
+  }
+};
+
+// Update the tags associated with a post
+export const updatePostTags = async (postId, selectedTags) => {
+  try {
+    const response = await fetch(`http://localhost:8088/posts/${postId}/tags`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ tags: selectedTags }), // Pass the selected tag IDs
+    });
+    if (!response.ok) {
+      throw new Error("Network response was not ok.");
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Update error:", error);
   }
 };

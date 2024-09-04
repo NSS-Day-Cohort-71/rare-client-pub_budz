@@ -13,6 +13,8 @@ import { CreateTag } from "../components/tags/CreateTag";
 import { NewPost } from "../components/posts/NewPost";
 import PostDetail from "../components/posts/PostDetail";
 import { MyPosts } from '../components/posts/MyPosts';
+import { ManageTags } from "../components/tags/ManageTags";
+
 
 
 
@@ -29,6 +31,7 @@ export const ApplicationViews = ({ token, setToken }) => {
           <Route path="posts/new" element={<NewPost />} />
           <Route path="posts/:postId/edit" element={<EditPost />} />
           <Route path="posts/:postId" element={<PostDetail />} />
+          <Route path="posts/:postId/tags" element={<ManageTags />} />
           <Route path="categories" element={<Categories />} />
           <Route path="/categories/edit/:categoryId" element={<EditCategory />} />
           <Route path="categories/create" element={<CreateCategory />} />
