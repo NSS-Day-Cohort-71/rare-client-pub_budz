@@ -1,85 +1,74 @@
-import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { getPostById } from "../../services/postService";
-import { getAllTags } from "../../services/tagService";
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { getPostTags, getAllTags, savePostTags } from '../../services/tagService';
 
-export const ManageTags = () => {
-  const { postId } = useParams(); // Get the postId from the URL params
-  const [tags, setTags] = useState([]);
-  const [selectedTags, setSelectedTags] = useState([]);
-  const [post, setPost] = useState({});
-  const navigate = useNavigate();
+const ManageTags = () => {
+  const { postId } = useParams();  // Get postId from route parameters
+  const [availableTags, setAvailableTags] = useState([]);  // Store all available tags
+  const [selectedTags, setSelectedTags] = useState([]);  // Store tags selected for the post
+  const [error, setError] = useState("");  // Store error message
 
+  // Fetch available tags and post-specific tags
   useEffect(() => {
     const fetchTags = async () => {
       try {
-        const allTags = await getAllTags();
-        setTags(allTags);
+        const allTags = await getAllTags();  // Fetch all available tags
+        setAvailableTags(allTags);
+
+        const postTags = await getPostTags(postId);  // Fetch tags for the post
+        setSelectedTags(postTags.map(tag => tag.id));  // Extract tag IDs
       } catch (error) {
         console.error("Error fetching tags:", error);
+        setError("Failed to load tags");
       }
     };
-
-    const fetchPost = async () => {
-      try {
-        const postData = await getPostById(postId);
-        setPost(postData);
-        setSelectedTags(postData.tags || []);
-      } catch (error) {
-        console.error("Error fetching post:", error);
-      }
-    };
-
     fetchTags();
-    fetchPost();
   }, [postId]);
 
-  const handleTagChange = (tagId) => {
+  // Toggle tag selection (add or remove)
+  const toggleTag = (tagId) => {
     if (selectedTags.includes(tagId)) {
-      setSelectedTags(selectedTags.filter((id) => id !== tagId));
+      setSelectedTags(selectedTags.filter(id => id !== tagId));  // Deselect the tag
     } else {
-      setSelectedTags([...selectedTags, tagId]);
+      setSelectedTags([...selectedTags, tagId]);  // Select the tag
     }
   };
 
+  // Save the selected tags (create or update tags)
   const handleSaveTags = async () => {
     try {
-      const response = await fetch(`http://localhost:8088/posts/${postId}/tags`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ tag_ids: selectedTags }),
-      });
-
-      if (response.ok) {
-        alert("Tags updated successfully!");
-        navigate(`/posts/${postId}`);
-      } else {
-        alert("Failed to update tags.");
-      }
+      await savePostTags(postId, selectedTags);  // Save tags for the post
+      alert("Tags saved successfully!");
     } catch (error) {
-      console.error("Error updating tags:", error);
+      setError("Failed to save tags");
     }
   };
 
   return (
     <div>
-      <h1>Manage Tags for {post.title}</h1>
-      <div>
-        {tags.map((tag) => (
+      <h1>Manage Tags for Post {postId}</h1>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+
+      {availableTags.length > 0 ? (
+        availableTags.map(tag => (
           <div key={tag.id}>
-            <input
-              type="checkbox"
-              checked={selectedTags.includes(tag.id)}
-              onChange={() => handleTagChange(tag.id)}
-            />
-            <label>{tag.label}</label>
+            <label>
+              <input
+                type="checkbox"
+                checked={selectedTags.includes(tag.id)}  // Check if tag is selected
+                onChange={() => toggleTag(tag.id)}  // Toggle tag selection
+              />
+              {tag.label}
+            </label>
           </div>
-        ))}
-      </div>
+        ))
+      ) : (
+        <p>No tags available.</p>
+      )}
+
       <button onClick={handleSaveTags}>Save Tags</button>
-      <button onClick={() => navigate(`/posts/${postId}`)}>Cancel</button>
     </div>
   );
 };
+
+export default ManageTags;

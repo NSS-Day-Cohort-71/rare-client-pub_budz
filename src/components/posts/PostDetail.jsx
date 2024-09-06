@@ -59,6 +59,7 @@ const PostDetail = () => {
       </p>
       {post.image_url && <img src={post.image_url} alt="Post Header" />}
       <p>{post.content}</p>
+      
 
       {/* Link to manage tags */}
       <div>

@@ -79,29 +79,39 @@ export const createTag = async (tag) => {
 // New Functions to Add
 
 // Fetch tags associated with a specific post
-export const getTagsByPostId = async (postId) => {
+export const getPostTags = async (postId) => {
   try {
-    const response = await fetch(`http://localhost:8088/posts/${postId}/tags`);
+    const response = await fetch(`http://localhost:8088/posttags?post_id=${postId}`);
     if (!response.ok) {
-      throw new Error("Failed to fetch tags for the post.");
+      const errorText = await response.text();
+      throw new Error(`Failed to fetch tags for the post. Server responded with: ${errorText}`);
     }
-    return await response.json();
+    return await response.json();  // This should return an array of tags for the post
   } catch (error) {
     console.error("Fetch error:", error);
+    return [];
   }
 };
 
-// Save tags for a specific post
+
+// tagService.js
+
+// Save (add) tags to a specific post
 export const savePostTags = async (postId, tagIds) => {
   try {
-    const response = await fetch(`http://localhost:8088/posts/${postId}/tags`, {
-      method: "PUT",
+    const response = await fetch(`http://localhost:8088/posttags`, {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ tag_ids: tagIds }), // Make sure it's 'tag_ids'
+      body: JSON.stringify({
+        post_id: postId,
+        tag_ids: tagIds
+      })  // Send the list of tag IDs
     });
     if (!response.ok) {
+      const errorText = await response.text();
+      console.error(`Error from server: ${errorText}`);
       throw new Error("Failed to save tags for the post.");
     }
     return await response.json();
@@ -110,3 +120,43 @@ export const savePostTags = async (postId, tagIds) => {
   }
 };
 
+// Update tags for a specific post
+export const updatePostTags = async (postId, tagIds) => {
+  try {
+    const response = await fetch(`http://localhost:8088/posttags`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        post_id: postId,
+        tag_ids: tagIds
+      })  // Send the new list of tag IDs
+    });
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error(`Error from server: ${errorText}`);
+      throw new Error("Failed to update tags for the post.");
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Fetch error:", error);
+  }
+};
+
+// Delete a specific tag from a post
+export const deletePostTag = async (tagId) => {
+  try {
+    const response = await fetch(`http://localhost:8088/posttags/${tagId}`, {
+      method: "DELETE"
+    });
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error(`Error from server: ${errorText}`);
+      throw new Error("Failed to delete tag from the post.");
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Fetch error:", error);
+  }
+};

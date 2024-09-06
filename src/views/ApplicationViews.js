@@ -14,7 +14,7 @@ import { NewPost } from "../components/posts/NewPost";
 import PostDetail from "../components/posts/PostDetail";
 import { MyPosts } from "../components/posts/MyPosts";
 import CommentForm from "../components/comments/CommentForm";
-import  { ManageTags }  from "../components/tags/ManageTags";
+import  ManageTags   from "../components/tags/ManageTags";
 
 
 
