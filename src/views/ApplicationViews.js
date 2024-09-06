@@ -14,12 +14,7 @@ import { NewPost } from "../components/posts/NewPost";
 import PostDetail from "../components/posts/PostDetail";
 import { MyPosts } from "../components/posts/MyPosts";
 import CommentForm from "../components/comments/CommentForm";
-import  ManageTags   from "../components/tags/ManageTags";
-
-
-
-
-
+import ManageTags from "../components/tags/ManageTags";
 
 export const ApplicationViews = ({ token, setToken }) => {
   return (
@@ -29,13 +24,12 @@ export const ApplicationViews = ({ token, setToken }) => {
         <Route path="/register" element={<Register setToken={setToken} />} />
         <Route element={<Authorized token={token} />}>
           <Route path="posts" element={<AllPosts />} />
-          <Route path="posts/:postId" element={<PostDetail />} />
+          <Route path="posts/:postId" element={<PostDetail />} /> {/* One PostDetail route */}
           <Route path="myposts" element={<MyPosts />} />
           <Route path="posts/new" element={<NewPost />} />
           <Route path="posts/:postId/edit" element={<EditPost />} />
           <Route path="posts/:postId/comments/new" element={<CommentForm />} />
-          <Route path="posts/:postId" element={<PostDetail />} />
-          <Route path="posts/:postId/tags" element={<ManageTags />} />
+          <Route path="posts/:postId/tags" element={<ManageTags />} /> {/* Manage Tags */}
           <Route path="categories" element={<Categories />} />
           <Route path="categories/edit/:categoryId" element={<EditCategory />} />
           <Route path="categories/create" element={<CreateCategory />} />

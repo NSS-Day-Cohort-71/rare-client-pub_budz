@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getPostById } from '../../services/postService';
 import { getCommentsByPostId } from "../../services/commentService";
+import { getPostTags } from '../../services/tagService'; // Import function to fetch tags
 import CommentList from "../comments/CommentList";
 
 const PostDetail = () => {
@@ -9,6 +10,7 @@ const PostDetail = () => {
   const [post, setPost] = useState(null); // State to store the post data
   const [author, setAuthor] = useState("Unknown Author"); // State to store the author's name
   const [comments, setComments] = useState([]); // State to store the comments for the post
+  const [tags, setTags] = useState([]); // State to store the tags for the post
   const [error, setError] = useState(""); // State to store any error message
 
   useEffect(() => {
@@ -34,6 +36,10 @@ const PostDetail = () => {
         // Fetch comments related to the post
         const postComments = await getCommentsByPostId(postId);
         setComments(postComments);
+
+        // Fetch tags related to the post
+        const postTags = await getPostTags(postId); // Fetch the tags for the post
+        setTags(postTags); // Store the tags in state
       } catch (error) {
         console.error("Failed to fetch post or comments:", error);
         setError("Failed to load post data");
@@ -59,7 +65,20 @@ const PostDetail = () => {
       </p>
       {post.image_url && <img src={post.image_url} alt="Post Header" />}
       <p>{post.content}</p>
-      
+
+      {/* Display tags associated with the post */}
+      <div>
+        <h3>Tags:</h3>
+        {tags.length > 0 ? (
+          <ul>
+            {tags.map(tag => (
+              <li key={tag.id}>{tag.label}</li> // Assuming tag has id and label
+            ))}
+          </ul>
+        ) : (
+          <p>No tags available for this post.</p>
+        )}
+      </div>
 
       {/* Link to manage tags */}
       <div>

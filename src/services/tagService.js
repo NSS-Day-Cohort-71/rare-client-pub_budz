@@ -95,8 +95,7 @@ export const getPostTags = async (postId) => {
 
 
 // tagService.js
-
-// Save (add) tags to a specific post
+// Add tags to a specific post
 export const savePostTags = async (postId, tagIds) => {
   try {
     const response = await fetch(`http://localhost:8088/posttags`, {
@@ -106,8 +105,8 @@ export const savePostTags = async (postId, tagIds) => {
       },
       body: JSON.stringify({
         post_id: postId,
-        tag_ids: tagIds
-      })  // Send the list of tag IDs
+        tag_ids: tagIds  // Send the list of tag IDs to be added
+      })
     });
     if (!response.ok) {
       const errorText = await response.text();
@@ -119,41 +118,16 @@ export const savePostTags = async (postId, tagIds) => {
     console.error("Fetch error:", error);
   }
 };
-
-// Update tags for a specific post
-export const updatePostTags = async (postId, tagIds) => {
-  try {
-    const response = await fetch(`http://localhost:8088/posttags`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        post_id: postId,
-        tag_ids: tagIds
-      })  // Send the new list of tag IDs
-    });
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error(`Error from server: ${errorText}`);
-      throw new Error("Failed to update tags for the post.");
-    }
-    return await response.json();
-  } catch (error) {
-    console.error("Fetch error:", error);
-  }
-};
-
 // Delete a specific tag from a post
-export const deletePostTag = async (tagId) => {
+export const deletePostTag = async (postId, tagId) => {
   try {
-    const response = await fetch(`http://localhost:8088/posttags/${tagId}`, {
-      method: "DELETE"
+    const response = await fetch(`http://localhost:8088/posttags/${postId}/${tagId}`, {
+      method: "DELETE",
     });
     if (!response.ok) {
       const errorText = await response.text();
       console.error(`Error from server: ${errorText}`);
-      throw new Error("Failed to delete tag from the post.");
+      throw new Error("Failed to delete tag from post.");
     }
     return await response.json();
   } catch (error) {

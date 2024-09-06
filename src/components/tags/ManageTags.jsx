@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { getPostTags, getAllTags, savePostTags } from '../../services/tagService';
+import { useParams, useNavigate } from 'react-router-dom';
+import { getPostTags, getAllTags, savePostTags, deletePostTag } from '../../services/tagService'; // Import deletePostTag
 
 const ManageTags = () => {
   const { postId } = useParams();  // Get postId from route parameters
+  const navigate = useNavigate();  // Initialize useNavigate to handle navigation
   const [availableTags, setAvailableTags] = useState([]);  // Store all available tags
   const [selectedTags, setSelectedTags] = useState([]);  // Store tags selected for the post
   const [error, setError] = useState("");  // Store error message
@@ -34,14 +35,37 @@ const ManageTags = () => {
     }
   };
 
-  // Save the selected tags (create or update tags)
+  // Save the selected tags (POST)
   const handleSaveTags = async () => {
     try {
       await savePostTags(postId, selectedTags);  // Save tags for the post
       alert("Tags saved successfully!");
+      navigate(`/posts/${postId}`);  // Navigate back to post details after saving
     } catch (error) {
       setError("Failed to save tags");
     }
+  };
+
+  // Delete the unselected tags
+  const handleDeleteTags = async () => {
+    try {
+      const unselectedTags = availableTags.filter(tag => !selectedTags.includes(tag.id));
+      
+      // Loop through unselected tags and delete them from the post
+      for (const tag of unselectedTags) {
+        await deletePostTag(postId, tag.id);
+      }
+
+      alert("Tags deleted successfully!");
+      navigate(`/posts/${postId}`);  // Navigate back to post details after deletion
+    } catch (error) {
+      setError("Failed to delete tags");
+    }
+  };
+
+  // Cancel the operation and go back to the post detail page
+  const handleCancel = () => {
+    navigate(`/posts/${postId}`);  // Navigate back to post details
   };
 
   return (
@@ -67,6 +91,8 @@ const ManageTags = () => {
       )}
 
       <button onClick={handleSaveTags}>Save Tags</button>
+      <button onClick={handleDeleteTags}>Delete Unchecked Tags</button>
+      <button onClick={handleCancel}>Cancel</button>
     </div>
   );
 };
