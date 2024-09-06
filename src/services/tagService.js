@@ -81,7 +81,7 @@ export const createTag = async (tag) => {
 // Fetch tags associated with a specific post
 export const getTagsByPostId = async (postId) => {
   try {
-    const response = await fetch(`http://localhost:8088/posts/tags/${postId}`);
+    const response = await fetch(`http://localhost:8088/posts/${postId}/tags`);
     if (!response.ok) {
       throw new Error("Failed to fetch tags for the post.");
     }
@@ -94,12 +94,12 @@ export const getTagsByPostId = async (postId) => {
 // Save tags for a specific post
 export const savePostTags = async (postId, tagIds) => {
   try {
-    const response = await fetch(`http://localhost:8088/posts/tags/${postId}`, {
+    const response = await fetch(`http://localhost:8088/posts/${postId}/tags`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ tag_ids: tagIds }),
+      body: JSON.stringify({ tag_ids: tagIds }), // Make sure it's 'tag_ids'
     });
     if (!response.ok) {
       throw new Error("Failed to save tags for the post.");
@@ -109,34 +109,4 @@ export const savePostTags = async (postId, tagIds) => {
     console.error("Fetch error:", error);
   }
 };
-// Fetch tags associated with a specific post
-export const getTagsForPost = async (postId) => {
-  try {
-    const response = await fetch(`http://localhost:8088/posts/${postId}/tags`);
-    if (!response.ok) {
-      throw new Error("Network response was not ok.");
-    }
-    return await response.json();
-  } catch (error) {
-    console.error("Fetch error:", error);
-  }
-};
 
-// Update the tags associated with a post
-export const updatePostTags = async (postId, selectedTags) => {
-  try {
-    const response = await fetch(`http://localhost:8088/posts/${postId}/tags`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ tags: selectedTags }), // Pass the selected tag IDs
-    });
-    if (!response.ok) {
-      throw new Error("Network response was not ok.");
-    }
-    return await response.json();
-  } catch (error) {
-    console.error("Update error:", error);
-  }
-};

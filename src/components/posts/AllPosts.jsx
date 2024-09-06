@@ -53,11 +53,18 @@ export const AllPosts = () => {
                 <button onClick={() => handleDelete(post.id)}>Delete</button>
               </td>
               <td>
-                <Link to={`/posts/${post.id}`}>{post.title}</Link> {/* Make the title clickable */}
+                <Link to={`/posts/${post.id}`}>{post.title}</Link>{" "}
+                {/* Make the title clickable */}
               </td>
               <td>{post.author}</td>
               <td>{post.publication_date}</td>
               <td>{post.category}</td>
+              <td>
+                <Link to={`/posts/${post.id}/edit`}>Edit</Link>
+              </td>
+              <td>
+                <button onClick={() => handleDelete(post.id)}>Delete</button>
+              </td>
             </tr>
           ))}
         </tbody>
