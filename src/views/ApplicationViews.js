@@ -29,23 +29,19 @@ export const ApplicationViews = ({ token, setToken }) => {
         <Route path="/register" element={<Register setToken={setToken} />} />
         <Route element={<Authorized token={token} />}>
           <Route path="posts" element={<AllPosts />} />
+          <Route path="posts/:postId" element={<PostDetail />} />
+          <Route path="/myposts" element={<MyPosts />} />
           <Route path="posts/new" element={<NewPost />} />
           <Route path="posts/:postId/edit" element={<EditPost />} />
+          <Route path="posts/:postId/comments/new" element={<CommentForm />} />
           <Route path="posts/:postId" element={<PostDetail />} />
           <Route path="posts/:postId/tags" element={<ManageTags />} />
           <Route path="categories" element={<Categories />} />
-          <Route
-            path="/categories/edit/:categoryId"
-            element={<EditCategory />}
-          />
+          <Route path="/categories/edit/:categoryId" element={<EditCategory />} />
           <Route path="categories/create" element={<CreateCategory />} />
           <Route path="tags" element={<Tags />} />
-          <Route path="/myposts" element={<MyPosts />} />
           <Route path="tags/edit/:id" element={<EditTag />} />
           <Route path="tags/create" element={<CreateTag />} />
-
-          {/* Add Comment Route */}
-          <Route path="posts/:postId/comments/new" element={<CommentForm />} />
         </Route>
       </Routes>
     </>
