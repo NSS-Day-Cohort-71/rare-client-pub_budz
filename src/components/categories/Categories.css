@@ -1,0 +1,30 @@
+.categories-container {
+    padding: 20px;
+  }
+  
+  .categories-title {
+    margin-bottom: 20px;
+  }
+  
+  .create-category-button {
+    margin-bottom: 20px;
+    margin-left: auto;
+    display: block;
+  }
+  
+  .categories-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .categories-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .actions-cell {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
