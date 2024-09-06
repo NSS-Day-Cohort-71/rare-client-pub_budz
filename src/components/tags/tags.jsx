@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getAllTags, deleteTag } from "../../services/tagService";
+import "./Tags.css"
 
 export const Tags = () => {
   const [tags, setTags] = useState([]);
@@ -25,18 +26,23 @@ export const Tags = () => {
   };
 
   return (
-    <div>
-      <h1><strong>Tags</strong></h1>
-      <Link to="/tags/create">Create New Tag</Link> {/* Add this link */}
-      <ul>
-        {tags.map((tag) => (
-          <li key={tag.id}>
-            {tag.label}{" "}
-            <Link to={`/tags/edit/${tag.id}`}>Edit</Link>{" "}
-            <button onClick={() => handleDelete(tag.id)}>Delete</button>
-          </li>
-        ))}
-      </ul>
+    <div className="tags-container">
+      <h1 className="tags-title"><strong>Tags</strong></h1>
+      <Link to="/tags/create" className="create-tag-button">Create New Tag</Link>
+      <table className="tags-table">
+        <tbody>
+          {tags.map((tag) => (
+            <tr key={tag.id}>
+              <td className="actions-cell">
+                <Link to={`/tags/edit/${tag.id}`}>Edit</Link>{" "}
+                <button onClick={() => handleDelete(tag.id)}>Delete</button>
+              </td>
+              <td>{tag.label}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
+

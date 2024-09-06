@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createCategory } from "../../services/categoryService";
+import "./Categories.css";
 
 export const CreateCategory = () => {
   const [label, setLabel] = useState("");
@@ -20,7 +21,7 @@ export const CreateCategory = () => {
   };
 
   return (
-    <div>
+    <div className="create-category-form">
       <h1>Create Category</h1>
       <input
         type="text"
@@ -28,9 +29,16 @@ export const CreateCategory = () => {
         value={label}
         onChange={handleInputChange}
         placeholder="Enter category name"
+        className="form-input"
       />
-      <button onClick={handleSave}>Save</button>
-      <button onClick={handleCancel}>Cancel</button>
+      <div className="form-actions">
+        <button onClick={handleSave} className="form-button">
+          Save
+        </button>
+        <button onClick={handleCancel} className="form-button">
+          Cancel
+        </button>
+      </div>
     </div>
   );
 };
