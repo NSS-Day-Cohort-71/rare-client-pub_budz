@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createTag } from "../../services/tagService"; // Import the createTag function
+import { createTag } from "../../services/tagService";
+import "./Tags.css";
 
 export const CreateTag = () => {
   const [label, setLabel] = useState("");
@@ -20,7 +21,7 @@ export const CreateTag = () => {
   };
 
   return (
-    <div>
+    <div className="create-tag-form">
       <h1>Create Tag</h1>
       <input
         type="text"
@@ -28,9 +29,16 @@ export const CreateTag = () => {
         value={label}
         onChange={handleInputChange}
         placeholder="Enter tag name"
+        className="form-input"
       />
-      <button onClick={handleSave}>Save</button>
-      <button onClick={handleCancel}>Cancel</button>
+      <div className="form-actions">
+        <button onClick={handleSave} className="form-button">
+          Save
+        </button>
+        <button onClick={handleCancel} className="form-button">
+          Cancel
+        </button>
+      </div>
     </div>
   );
 };

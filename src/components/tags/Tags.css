@@ -1,3 +1,5 @@
+/* TAGS MANAGER */
+
 .tags-container {
     padding: 20px;
   }
@@ -29,3 +31,58 @@
     align-items: center;
   }
   
+
+/* CREATE TAG FORM */
+
+.create-tag-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.create-tag-form h1 {
+  margin-bottom: 20px;
+}
+
+.form-input {
+  padding: 10px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 300px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.form-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  color: white;
+}
+
+.form-button:hover {
+  opacity: 0.9;
+}
+
+.form-button:nth-of-type(1) {
+  background-color: #007bff;
+}
+
+.form-button:nth-of-type(2) {
+  background-color: #6c757d;
+}
