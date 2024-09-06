@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { deletePost, getAllPosts } from "../../services/postService";
 import { getAllCategories } from "../../services/categoryService";
 import { CategoryDropdown } from "../categories/CategoryDropdown";
+import { SearchBar } from "../utils/SearchBar";
 
 export const AllPosts = () => {
   const [posts, setPosts] = useState([]);
@@ -57,6 +58,10 @@ export const AllPosts = () => {
       <h1>
         <strong>Posts</strong>
       </h1>
+
+      <div>
+        <SearchBar posts={posts} setFilteredPosts={setFilteredPosts} />
+      </div>
 
       <div>
         <Link to="/posts/new">
