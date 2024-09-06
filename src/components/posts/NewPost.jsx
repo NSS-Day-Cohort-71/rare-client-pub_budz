@@ -52,7 +52,11 @@ export const NewPost = () => {
 
   return (
     <div>
-      <h1>New Post</h1>
+      <h1>
+        <strong>
+          <center>New Post</center>
+        </strong>
+      </h1>
       <PostForm
         post={defaultPost}
         categories={categories}

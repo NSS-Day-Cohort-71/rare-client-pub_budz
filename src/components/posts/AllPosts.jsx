@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { deletePost, getAllPosts } from "../../services/postService";
 import { getAllCategories } from "../../services/categoryService";
 import { CategoryDropdown } from "../categories/CategoryDropdown";
+import { SearchBar } from "../utils/SearchBar";
+import "./Posts.css"
 
 export const AllPosts = () => {
   const [posts, setPosts] = useState([]);
@@ -53,27 +55,27 @@ export const AllPosts = () => {
   };
 
   return (
-    <div>
-      <h1>
+    <div className="all-posts-container">
+      <h1 className="all-posts-title">
         <strong>Posts</strong>
       </h1>
 
-      <div>
+      <div className="all-posts-filters">
+        <SearchBar posts={posts} setFilteredPosts={setFilteredPosts} />
+        <CategoryDropdown
+          categories={categories}
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+        />
         <Link to="/posts/new">
-          <button>Add Post</button>
+          <button className="add-post-button">Add Post</button>
         </Link>
       </div>
 
-      <CategoryDropdown
-        categories={categories}
-        selectedCategory={selectedCategory}
-        setSelectedCategory={setSelectedCategory}
-      />
-
-      <table>
+      <table className="posts-table">
         <thead>
           <tr>
-            <th>{""}</th>
+            <th>Actions</th>
             <th>Title</th>
             <th>Author</th>
             <th>Date</th>
@@ -83,13 +85,12 @@ export const AllPosts = () => {
         <tbody>
           {filteredPosts.map((post) => (
             <tr key={post.id}>
-              <td>
+              <td className="actions-cell">
                 <Link to={`/posts/${post.id}/edit`}>Edit</Link>{" "}
                 <button onClick={() => handleDelete(post.id)}>Delete</button>
               </td>
               <td>
                 <Link to={`/posts/${post.id}`}>{post.title}</Link>{" "}
-                {/* Make the title clickable */}
               </td>
               <td>{post.author}</td>
               <td>{post.publication_date}</td>
@@ -101,3 +102,4 @@ export const AllPosts = () => {
     </div>
   );
 };
+

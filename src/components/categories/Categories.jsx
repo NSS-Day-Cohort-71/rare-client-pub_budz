@@ -4,6 +4,7 @@ import {
   getAllCategories,
 } from "../../services/categoryService";
 import { Link, useNavigate } from "react-router-dom";
+import "./Categories.css";
 
 export const Categories = () => {
   const [categories, setCategories] = useState([]);
@@ -30,22 +31,31 @@ export const Categories = () => {
   };
 
   return (
-    <div>
-      <h1>
+    <div className="categories-container">
+      <h1 className="categories-title">
         <strong>Categories</strong>
       </h1>
-      <button onClick={() => navigate("/categories/create")}>
+      <button
+        className="create-category-button"
+        onClick={() => navigate("/categories/create")}
+      >
         Create Category
       </button>
-      <ul>
-        {categories.map((category) => (
-          <li key={category.id}>
-            {category.label}
-            <Link to={`/categories/edit/${category.id}`}>Edit</Link>
-            <button onClick={() => handleDelete(category.id)}>Delete</button>
-          </li>
-        ))}
-      </ul>
+      <table className="categories-table">
+        <tbody>
+          {categories.map((category) => (
+            <tr key={category.id}>
+              <td className="actions-cell">
+                <Link to={`/categories/edit/${category.id}`}>Edit</Link>{" "}
+                <button onClick={() => handleDelete(category.id)}>
+                  Delete
+                </button>
+              </td>
+              <td>{category.label}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "./Posts.css"
 
 export const PostForm = ({ post = {}, categories = [], onSave, onCancel }) => {
   const [formData, setFormData] = useState({
@@ -31,39 +32,43 @@ export const PostForm = ({ post = {}, categories = [], onSave, onCancel }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>Title</label>
+    <form onSubmit={handleSubmit} className="post-form">
+      <div className="form-group">
+        <label className="form-label">Title</label>
         <input
           type="text"
           name="title"
           value={formData.title}
           onChange={handleChange}
+          className="form-input"
         />
       </div>
-      <div>
-        <label>Image URL</label>
+      <div className="form-group">
+        <label className="form-label">Image URL</label>
         <input
           type="text"
           name="image_url"
           value={formData.image_url}
           onChange={handleChange}
+          className="form-input"
         />
       </div>
-      <div>
-        <label>Content</label>
+      <div className="form-group">
+        <label className="form-label">Content</label>
         <textarea
           name="content"
           value={formData.content}
           onChange={handleChange}
+          className="form-textarea"
         />
       </div>
-      <div>
-        <label>Category</label>
+      <div className="form-group">
+        <label className="form-label">Category</label>
         <select
           name="category_id"
           value={formData.category_id}
           onChange={handleChange}
+          className="form-select"
         >
           <option value="">Select a category</option>
           {categories.map((category) => (
@@ -73,10 +78,13 @@ export const PostForm = ({ post = {}, categories = [], onSave, onCancel }) => {
           ))}
         </select>
       </div>
-      <button type="submit">Save</button>
-      <button type="button" onClick={onCancel}>
-        Cancel
-      </button>
+      <div className="form-actions">
+        <button type="submit" className="form-button">Save</button>
+        <button type="button" onClick={onCancel} className="form-button">
+          Cancel
+        </button>
+      </div>
     </form>
   );
 };
+
